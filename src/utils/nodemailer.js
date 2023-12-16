@@ -1,13 +1,10 @@
 import { createTransport } from "nodemailer";
 
-const { NODEMAILER_USER, NODEMAILER_PASSWORD, NODEMAILER_SERVICE } =
-  process.env;
-
 const transport = createTransport({
-  service: NODEMAILER_SERVICE,
+  service: "gmail",
   auth: {
-    user: NODEMAILER_USER,
-    pass: NODEMAILER_PASSWORD,
+    user: "ropstam.test.1@gmail.com",
+    pass: "yyfbngoempvmlvja",
   },
 });
 
@@ -43,7 +40,7 @@ export const sendWelcomeEmail = (to, password) => {
   try {
     transport
       .sendMail({
-        from: `Ropstam mailer ${NODEMAILER_USER}`,
+        from: `Ropstam mailer`,
         to,
         subject: "Account password",
         html: `
