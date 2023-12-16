@@ -3,7 +3,7 @@ import { createTransport } from "nodemailer";
 const transport = createTransport({
   service: "gmail",
   secure: true,
-
+  port: 465,
   auth: {
     user: "ropstam.test.1@gmail.com",
     pass: "yyfbngoempvmlvja",
