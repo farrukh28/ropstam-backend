@@ -1,8 +1,9 @@
 import { CategoriesModel } from "../models/index.model.js";
 import { AppError } from "../utils/error-handler.js";
+import { transformSortByString } from "../utils/helper-functions.js";
 
 export const getCategories = async (args) => {
-  let { page, limit, userID } = args;
+  let { page, limit, userID, sort } = args;
 
   if (page) page--;
   if (!page) page = 0;
@@ -12,12 +13,19 @@ export const getCategories = async (args) => {
     user: userID,
   };
 
+  // generate sort query object
+  let sortQuery = {};
+  if (sort) {
+    sortQuery = transformSortByString(sort);
+  }
+
   const data = await CategoriesModel.find(query)
+    .sort(sortQuery)
     .select({
       name: 0,
-      __v: 0,
       updatedAt: 0,
       user: 0,
+      __v: 0,
     })
     .skip(limit * page)
     .limit(limit);

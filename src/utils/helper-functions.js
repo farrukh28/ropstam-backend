@@ -19,6 +19,10 @@ export const getDirNameGlobal = (path) => {
 export const transformSortByString = (sortBy) => {
   const obj = {};
 
+  if (typeof sortBy !== "string") {
+    return obj;
+  }
+
   const stringParts = sortBy.split(",");
 
   stringParts.forEach((str) => {
