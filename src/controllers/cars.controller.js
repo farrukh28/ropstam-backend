@@ -3,7 +3,7 @@ import { AppError } from "../utils/error-handler.js";
 import { transformSortByString } from "../utils/helper-functions.js";
 
 export const getCars = async (args) => {
-  let { page, limit, userID, sort } = args;
+  let { page, limit, userID, sort, q } = args;
 
   if (page) page--;
   if (!page) page = 0;
@@ -17,6 +17,36 @@ export const getCars = async (args) => {
   let sortQuery = {};
   if (sort) {
     sortQuery = transformSortByString(sort);
+  }
+
+  // search query
+  if (q) {
+    query.$or = [
+      {
+        make: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+      {
+        model: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+      {
+        color: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+      {
+        registrationNumber: {
+          $regex: q,
+          $options: "i",
+        },
+      },
+    ];
   }
 
   const data = await CarsModel.find(query)
