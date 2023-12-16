@@ -2,8 +2,6 @@ import { createTransport } from "nodemailer";
 
 const transport = createTransport({
   service: "gmail",
-  secure: true,
-  port: 465,
   auth: {
     user: "ropstam.test.1@gmail.com",
     pass: "yyfbngoempvmlvja",
@@ -38,9 +36,9 @@ export const sendEmail = (to, subject, body) => {
  * @param {string} to email of receiver
  * @param {string} password password
  */
-export const sendWelcomeEmail = (to, password) => {
+export const sendWelcomeEmail = async (to, password) => {
   try {
-    transport
+    await transport
       .sendMail({
         from: `Ropstam mailer`,
         to,

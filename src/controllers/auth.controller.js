@@ -34,7 +34,7 @@ export const userSignup = async (args) => {
   await UsersModel.create(doc);
 
   //  send welcome email with password
-  sendWelcomeEmail(email, password);
+  await sendWelcomeEmail(email, password);
 
   return { message: "User created", success: true };
 };
